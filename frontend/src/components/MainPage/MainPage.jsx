@@ -18,7 +18,6 @@ const MainPage = () => {
             </div>
             <About />
             <FAQ />
-            <Footer />
         </div>
     )
 }
