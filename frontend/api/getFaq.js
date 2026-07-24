@@ -1,6 +1,6 @@
+const apiLink = import.meta.env.VITE_API_LINK;
 
-
-const link = 'http://localhost:3000/faq';
+const link = `${apiLink}/faq`;
 
 const getFaq = async () => {
     const result = await fetch(link)

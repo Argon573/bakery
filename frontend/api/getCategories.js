@@ -1,8 +1,8 @@
-
+const apiLink = import.meta.env.VITE_API_LINK;
 
 class Catalog{
     static async getCategories() {
-        const link = 'http://localhost:3000/catalog/categories';
+        const link = `${apiLink}/catalog/categories`;
         const result = await fetch(link, {
             method: 'GET',
             headers: {
@@ -18,7 +18,7 @@ class Catalog{
     }
 
     static async getCategoryFromTag(tag){
-        const link = 'http://localhost:3000/catalog/products';
+        const link = `${apiLink}/catalog/products`;
         const result = await fetch(link, {
             method: 'POST',
             headers: {
