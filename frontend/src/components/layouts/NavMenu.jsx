@@ -43,7 +43,7 @@ const NavMenu = ({ isOpen, setIsOpen, categories = [] }) => {
                                 key={category.id}
                                 onClick={() => setIsOpen(false)}
                                 className={({ isActive }) =>
-                                    `px-4 py-2.5 rounded-2xl text-base font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 ${
+                                    `px-4 py-2.5 rounded-2xl text-base font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 uppercase ${
                                         isActive
                                             ? "bg-amber-200/80 text-amber-950 font-semibold shadow-xs"
                                             : "text-stone-700 hover:bg-amber-100/70 hover:text-stone-900"
