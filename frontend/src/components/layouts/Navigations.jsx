@@ -7,7 +7,7 @@ import Catalog from "../../../api/getCategories.js";
 import Modal from "../Catalog/ProductCatalog/Modal.jsx";
 
 const linkClass = ({ isActive }) =>
-    `relative px-3 py-2 text-sm font-medium rounded-xl transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 ${
+    `relative px-3 py-2 text-sm font-medium rounded-xl transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 uppercase ${
         isActive
             ? "text-amber-950 bg-amber-200/70"
             : "text-stone-700 hover:text-stone-900 hover:bg-amber-100/80"
