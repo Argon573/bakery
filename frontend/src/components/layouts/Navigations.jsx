@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import NavMenu from "./NavMenu";
 import Container from "./Container";
 import Catalog from "../../../api/getCategories.js";
+import Modal from "../Catalog/ProductCatalog/Modal.jsx";
 
 const linkClass = ({ isActive }) =>
     `relative px-3 py-2 text-sm font-medium rounded-xl transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 ${
@@ -14,6 +15,7 @@ const linkClass = ({ isActive }) =>
 
 const Navigations = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -70,14 +72,17 @@ const Navigations = () => {
                         ))}
                     </nav>
 
-                    <a
-                        href="tel:+73522440151"
-                        className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-amber-600 text-white text-sm font-semibold shadow-sm transition-all duration-200 hover:bg-amber-700 hover:shadow-md active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
+                    <button
+                        type="button"
+                        onClick={() => setIsOrderModalOpen(true)}
+                        className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-amber-600 text-white text-sm font-semibold shadow-sm transition-all duration-200 hover:bg-amber-700 hover:shadow-md active:scale-[0.98] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
                     >
                         Заказать
-                    </a>
+                    </button>
                 </Container>
             </header>
+
+            <Modal isOpen={isOrderModalOpen} onClose={() => setIsOrderModalOpen(false)} />
         </>
     );
 };
