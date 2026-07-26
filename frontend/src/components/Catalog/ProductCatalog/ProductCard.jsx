@@ -9,8 +9,12 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <div className="group flex flex-col h-full bg-white rounded-2xl border border-gray-100 shadow-sm p-3 lg:p-4 overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-amber-200/60">
-            {isOpen && <Modal isOpen={isOpen} onClose={handleClose} />}
+        <div
+            className={`group flex flex-col h-full bg-white rounded-2xl border border-gray-100 shadow-sm p-3 lg:p-4 overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-amber-200/60 ${
+                isOpen ? "" : "hover:-translate-y-1"
+            }`}
+        >
+            <Modal isOpen={isOpen} onClose={handleClose} />
 
             <div className="aspect-square w-full overflow-hidden rounded-xl bg-gray-100 mb-3">
                 <img

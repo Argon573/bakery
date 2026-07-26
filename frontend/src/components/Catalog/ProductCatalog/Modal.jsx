@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 const isMobileDevice = () =>
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -48,7 +49,7 @@ const Modal = ({ isOpen, onClose }) => {
         toastTimerRef.current = setTimeout(() => setCopied(false), 2000);
     };
 
-    return (
+    return createPortal(
         <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4 animate-in fade-in duration-200"
             onClick={onClose}
@@ -115,7 +116,8 @@ const Modal = ({ isOpen, onClose }) => {
                     Номер скопирован
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body,
     );
 };
 
