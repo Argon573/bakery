@@ -60,7 +60,7 @@ const Navigations = () => {
                         />
                     </NavLink>
 
-                    <nav className="flex flex-1 items-center justify-center gap-1 flex-wrap max-w-3xl">
+                    <nav className="flex flex-1 items-center justify-center gap-1 flex-wrap max-w-3xl uppercase">
                         {categories.map((category) => (
                             <NavLink
                                 key={category.id}
