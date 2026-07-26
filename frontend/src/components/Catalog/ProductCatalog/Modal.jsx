@@ -1,5 +1,52 @@
+import { useEffect, useRef, useState } from "react";
+
+const isMobileDevice = () =>
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent,
+    );
+
 const Modal = ({ isOpen, onClose }) => {
+    const [copied, setCopied] = useState(false);
+    const toastTimerRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!isOpen) {
+            setCopied(false);
+            if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+        }
+    }, [isOpen]);
+
     if (!isOpen) return null;
+
+    const handlePhoneClick = async (event, phone) => {
+        if (isMobileDevice()) return;
+
+        event.preventDefault();
+
+        try {
+            await navigator.clipboard.writeText(phone);
+        } catch {
+            const textarea = document.createElement("textarea");
+            textarea.value = phone;
+            textarea.setAttribute("readonly", "");
+            textarea.style.position = "fixed";
+            textarea.style.left = "-9999px";
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+        }
+
+        setCopied(true);
+        if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+        toastTimerRef.current = setTimeout(() => setCopied(false), 2000);
+    };
 
     return (
         <div
@@ -34,6 +81,7 @@ const Modal = ({ isOpen, onClose }) => {
                 <div className="flex flex-col gap-3 w-full mb-4">
                     <a
                         href="tel:+73522440151"
+                        onClick={(e) => handlePhoneClick(e, "+73522440151")}
                         className="flex items-center justify-center gap-2 py-3 px-4 bg-amber-500 hover:bg-amber-600 active:scale-[0.98] text-white font-bold rounded-2xl shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700 focus-visible:ring-offset-2"
                     >
                         <span aria-hidden="true">📞</span> 44-01-51
@@ -41,6 +89,7 @@ const Modal = ({ isOpen, onClose }) => {
 
                     <a
                         href="tel:+73522556065"
+                        onClick={(e) => handlePhoneClick(e, "+73522556065")}
                         className="flex items-center justify-center gap-2 py-3 px-4 bg-white/80 hover:bg-white active:scale-[0.98] text-amber-950 font-bold rounded-2xl border border-amber-300/50 shadow-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
                     >
                         <span aria-hidden="true">📞</span> 55-60-65
@@ -53,6 +102,18 @@ const Modal = ({ isOpen, onClose }) => {
                 >
                     Понятно, закрыть
                 </button>
+
+                <div
+                    role="status"
+                    aria-live="polite"
+                    className={`pointer-events-none absolute left-1/2 bottom-5 -translate-x-1/2 whitespace-nowrap rounded-xl bg-amber-950 px-4 py-2 text-sm font-semibold text-amber-50 shadow-lg transition-all duration-200 ${
+                        copied
+                            ? "opacity-100 translate-y-0"
+                            : "opacity-0 translate-y-2"
+                    }`}
+                >
+                    Номер скопирован
+                </div>
             </div>
         </div>
     );
